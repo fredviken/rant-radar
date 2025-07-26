@@ -76,14 +76,14 @@ export const searchReddit = tool({
     timeFilter: z.enum(['day', 'week', 'month', 'year', 'all']).default('month')
   }),
   execute: async ({ query, subreddit, sort, timeFilter }) => {
-    console.log('🔍 SearchReddit called with:', { query, subreddit, sort, timeFilter })
+    console.log('SearchReddit called with:', { query, subreddit, sort, timeFilter })
     
     const searchUrl = subreddit 
       ? `https://www.reddit.com/r/${subreddit}/search.json`
       : `https://www.reddit.com/search.json`
     
     const url = `${searchUrl}?q=${encodeURIComponent(query)}&sort=${sort}&t=${timeFilter}&limit=25`
-    console.log('📡 Fetching:', url)
+    console.log('Fetching:', url)
     
     const response = await fetch(url, {
       headers: { 
@@ -92,12 +92,12 @@ export const searchReddit = tool({
     })
     
     if (!response.ok) {
-      console.error('❌ Reddit API error:', response.status)
+      console.error('Reddit API error:', response.status)
       throw new Error(`Reddit API error: ${response.status}`)
     }
     
     const data = await response.json() as { data: { children: RedditPost[] } }
-    console.log(`✅ Found ${data.data.children.length} posts`)
+    console.log(`Found ${data.data.children.length} posts`)
     
     return data.data.children.map((post) => ({
       id: post.data.id,
@@ -119,10 +119,10 @@ export const getComments = tool({
     subreddit: z.string()
   }),
   execute: async ({ postId, subreddit }) => {
-    console.log('💬 GetComments called for:', { postId, subreddit })
+    console.log('GetComments called for:', { postId, subreddit })
     
     const url = `https://www.reddit.com/r/${subreddit}/comments/${postId}.json?limit=100`
-    console.log('📡 Fetching comments:', url)
+    console.log('Fetching comments:', url)
     
     const response = await fetch(url, { 
       headers: { 
@@ -131,13 +131,13 @@ export const getComments = tool({
     })
     
     if (!response.ok) {
-      console.error('❌ Comments API error:', response.status)
+      console.error('Comments API error:', response.status)
       throw new Error(`Reddit API error: ${response.status}`)
     }
     
     const data = await response.json() as [unknown, RedditListing]
     const comments = extractComments(data[1])
-    console.log(`✅ Extracted ${comments.length} comments`)
+    console.log(`Extracted ${comments.length} comments`)
     
     // Flatten and return top comments by score
     const topComments = comments
@@ -147,7 +147,7 @@ export const getComments = tool({
         score: c.score
       }))
     
-    console.log(`📊 Returning ${topComments.length} top comments`)
+    console.log(`Returning ${topComments.length} top comments`)
     return topComments
   }
 })
@@ -165,8 +165,8 @@ export const analyzeComplaint = tool({
     })
   }),
   execute: async ({ content, postMetadata }) => {
-    console.log('🧪 AnalyzeComplaint called for post:', postMetadata.id)
-    console.log('📝 Content length:', content.length)
+    console.log('AnalyzeComplaint called for post:', postMetadata.id)
+    console.log('Content length:', content.length)
     
     const analysisSchema = z.object({
       hasComplaint: z.boolean(),
@@ -191,7 +191,7 @@ Rate severity based on: emotion intensity, impact on user, frequency mentioned.`
       })
       
       const result = analysis.object as z.infer<typeof analysisSchema>
-      console.log('✅ Analysis completed:', {
+      console.log('Analysis completed:', {
         hasComplaint: result.hasComplaint,
         complaintsFound: result.complaints.length
       })
@@ -202,7 +202,7 @@ Rate severity based on: emotion intensity, impact on user, frequency mentioned.`
         metadata: postMetadata
       }
     } catch (error) {
-      console.error('❌ Analysis failed:', error)
+      console.error('Analysis failed:', error)
       return {
         hasComplaint: false,
         complaints: [],
