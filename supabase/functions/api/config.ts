@@ -1,6 +1,6 @@
 import { createOpenRouter } from "npm:@openrouter/ai-sdk-provider";
 
-export const model = "openai/gpt-4o-mini";
+export const model = "openai/gpt-4.1-mini";
 
 export const openrouter = createOpenRouter({
   apiKey: Deno.env.get("OPENROUTER_API_KEY"),

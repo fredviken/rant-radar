@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
       - Which aspect it relates to (UX, Performance, Pricing, etc.)
       
       Provide a detailed summary with all the specific complaints and their source URLs.`,
-      maxSteps: 5, // Increased to allow for tool use + text generation
+      maxSteps: 16, // Increased to allow for tool use + text generation
     });
     
     console.log('📊 Agent findings:', agentFindings)
