@@ -2,12 +2,19 @@
   import { onMount } from 'svelte';
   import { gsap } from 'gsap';
 
+  interface Props {
+    createdAt?: string;
+  }
+
+  let { createdAt }: Props = $props();
+
   let loadingContainer: HTMLDivElement;
   let spinner: HTMLDivElement;
   let innerRing: HTMLDivElement;
   let textElement: HTMLParagraphElement;
   let emojiContainer: HTMLDivElement;
   let loadingTextIndex = $state(0);
+  let elapsedTime = $state('');
 
   const loadingTexts = [
     "Scanning Reddit for complaints...",
@@ -21,6 +28,23 @@
 
   const angryEmojis = ['😠', '😡', '🤬', '😤', '🙄', '😒', '😑', '💢', '🔥', '⚡'];
   const insightfulEmojis = ['🤓', '🧠', '💡', '✨', '🎯', '🔍', '📊', '💎', '🏆', '⚡', '🎉', '🚀'];
+
+  function updateElapsedTime() {
+    if (!createdAt) return;
+    
+    const start = new Date(createdAt);
+    const now = new Date();
+    const diff = Math.floor((now.getTime() - start.getTime()) / 1000);
+    
+    const minutes = Math.floor(diff / 60);
+    const seconds = diff % 60;
+    
+    if (minutes > 0) {
+      elapsedTime = `${minutes}m ${seconds}s`;
+    } else {
+      elapsedTime = `${seconds}s`;
+    }
+  }
 
   function createFloatingEmoji() {
     const emoji = document.createElement('div');
@@ -157,9 +181,17 @@
     // Start emoji bubbling (more frequent)
     const emojiInterval = setInterval(createFloatingEmoji, 400 + Math.random() * 200); // Every 0.4-0.6 seconds
 
+    // Update elapsed time every second
+    let timerInterval: NodeJS.Timeout | null = null;
+    if (createdAt) {
+      updateElapsedTime(); // Initial update
+      timerInterval = setInterval(updateElapsedTime, 1000);
+    }
+
     return () => {
       clearInterval(textInterval);
       clearInterval(emojiInterval);
+      if (timerInterval) clearInterval(timerInterval);
       gsap.killTweensOf([spinner, textElement, loadingContainer]);
     };
   });
@@ -179,9 +211,16 @@
       <p bind:this={textElement} class="text-2xl font-semibold text-neutral-100">
         {loadingTexts[loadingTextIndex]}
       </p>
-      <p class="text-neutral-500">
-        This may take a few minutes
-      </p>
+      <div class="space-y-1">
+        <p class="text-neutral-500">
+          This may take a few minutes
+        </p>
+        {#if elapsedTime}
+          <p class="text-amber-400 text-sm font-medium">
+            Running for {elapsedTime}
+          </p>
+        {/if}
+      </div>
     </div>
   </div>
 </div>

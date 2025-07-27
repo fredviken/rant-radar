@@ -4,6 +4,11 @@
 	let { children } = $props();
 </script>
 
+
+<svelte:head>
+	<title>Rant Radar</title>
+</svelte:head>
+
 <div class="relative">
 	<div
 		class="absolute inset-0 size-full bg-dot-amber-500 animate-pulse mask-radial-at-center opacity-70"

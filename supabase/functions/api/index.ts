@@ -55,10 +55,7 @@ Create a JSON object with EXACTLY this structure:
   "complaints": [
     {
       "issue": "<specific problem>",
-      "severity": <1-10>,
-      "frequency": <number>,
       "category": "<descriptive category name>",
-      "constructiveFeedback": "<actionable improvement suggestion>",
       "sources": [
         {
           "postId": "<reddit post id>",
@@ -70,11 +67,10 @@ Create a JSON object with EXACTLY this structure:
       ]
     }
   ],
-  "summary": "<executive summary of main pain points>",
-  "recommendedActions": ["<action 1>", "<action 2>", "<action 3>"]
+  "summary": "<executive summary of main pain points>"
 }
 
-Include 3-7 complaints maximum. Focus on the most severe issues with proper source attribution.`,
+Include 3-7 complaints maximum. Focus on the most common and severe issues with proper source attribution.`,
     });
 
     // Save successful result

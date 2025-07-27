@@ -1,9 +1,7 @@
-// import { tool } from "https://esm.sh/ai@3.4.33"
 import { generateObject, tool } from "npm:ai"
 import { z } from "npm:zod/v3"
 import { openrouter, model } from "./config.ts"
 
-// Define proper types for Reddit API responses
 interface RedditPost {
   kind: string
   data: {
