@@ -9,7 +9,6 @@ Rant Radar searches Reddit for complaints about products or services, then uses 
 1. Enter what you want to analyze. It can be a product, service, or anything else.
 2. AI searches Reddit for complaints and issues
 3. Raw feedback gets transformed into organized insights
-4. Get structured results with severity ratings and recommendations
 
 ## Tech Stack
 
