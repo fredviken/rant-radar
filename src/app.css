@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+html {
+	@apply bg-neutral-950;
+}
+
+body {
+	@apply min-h-screen bg-gradient-to-b from-neutral-900 to-neutral-950 text-neutral-50;
+}
+
+@utility bg-dot-* {
+	background-image: radial-gradient(--value(--color-*) 1px, transparent 0px);
+	background-repeat: repeat;
+	background-size: 20px 20px;
+	background-position: center;
+}
+
+@utility bg-grid-* {
+	background-image:
+		linear-gradient(--value(--color-*) 1px, transparent 1px),
+		linear-gradient(90deg, --value(--color-*) 1px, transparent 1px);
+	background-size: 20px 20px;
+	background-position:
+		0 0,
+		0 0;
+}

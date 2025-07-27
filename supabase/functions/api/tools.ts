@@ -172,7 +172,6 @@ export const analyzeComplaint = tool({
       hasComplaint: z.boolean(),
       complaints: z.array(z.object({
         issue: z.string(),
-        severity: z.number().min(1).max(10),
         category: z.string().describe('Category of the complaint'),
         excerpt: z.string().max(200)
       }))
@@ -187,7 +186,7 @@ export const analyzeComplaint = tool({
 Content: ${content}
 
 Look for: frustrations, complaints, negative comparisons, feature requests born from pain points.
-Rate severity based on: emotion intensity, impact on user, frequency mentioned.`
+Focus on identifying the core issue and categorizing it appropriately.`
       })
       
       const result = analysis.object as z.infer<typeof analysisSchema>

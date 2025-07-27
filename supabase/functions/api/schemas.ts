@@ -2,7 +2,6 @@ import { z } from "npm:zod/v3"
 
 export const ComplaintSchema = z.object({
   issue: z.string().describe('The core complaint/issue'),
-  severity: z.number().min(1).max(10).describe('Severity score 1-10'),
   frequency: z.number().describe('How often this complaint appears'),
   category: z.string().describe('Category of the complaint (e.g., UX, Performance, Security, etc.)'),
   constructiveFeedback: z.string().describe('Reformulated as constructive feedback'),
