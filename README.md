@@ -24,12 +24,17 @@ Rant Radar searches Reddit for complaints about products or services, then uses 
 
 ## Getting Started
 
+Prerequisites:
+- Node.js installed
+- Supabase CLI installed
+- OpenRouter API key (get one at openrouter.ai)
+
 ```bash
 pnpm install
 ```
 
-Add environment variables:
-- `.env` - Add your Supabase keys for the frontend
+Add environment variables (you can copy the `.env.example` files):
+- `.env` - Add your Supabase url and anon key for the frontend
 - `supabase/functions/.env` - Add `OPENROUTER_API_KEY=your_key_here`
 
 ```bash
@@ -38,4 +43,4 @@ supabase functions serve
 pnpm dev
 ```
 
-Make sure to enale realtime for the `jobs` table in the supabase dashboard.
+Enable realtime for the `jobs` table in your Supabase dashboard.
