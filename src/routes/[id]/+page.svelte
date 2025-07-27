@@ -17,6 +17,7 @@
   let pageContainer: HTMLDivElement;
   // let previousStatus: string | null = null;
   let loadingComponent: LoadingState;
+  let completedContainer: HTMLDivElement;
 
   const jobId = $derived(page.params.id);
 
@@ -60,15 +61,22 @@
           if (job && job.status !== 'completed' && newJob.status === 'completed' && loadingComponent) {
             loadingComponent.createInsightBurst();
             
-            // Wait a moment for the burst, then transition
-            setTimeout(() => {
-              if (pageContainer) {
-                pageTransitions.seamlessTransition(pageContainer, () => {
-                  job = newJob;
-                });
-              } else {
-                job = newJob;
+            // Wait for burst, then custom transition
+            setTimeout(async () => {
+              // Exit spinner upward
+              if (loadingComponent) {
+                await loadingComponent.exitLoadingSpinner();
               }
+              
+              // Change state
+              job = newJob;
+              
+              // Wait for DOM update, then slide in completed content
+              setTimeout(() => {
+                if (completedContainer) {
+                  pageTransitions.slideInFromBottom(completedContainer);
+                }
+              }, 50);
             }, 1000);
           } else if (job && job.status !== newJob.status && pageContainer) {
             // Regular transition for other status changes
@@ -110,12 +118,14 @@
     {:else if job?.status === 'failed'}
       <ErrorState error={job.error_message || 'Analysis failed'} onRetry={loadJob} />
     {:else if job?.status === 'completed'}
-      <CompletedState {job} />
-      <!-- Back to Home -->
-      <div class="text-left">
-        <a href="/" class="inline-flex items-center px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-100 rounded-lg transition-colors">
-          ← Analyze Another Query
-        </a>
+      <div bind:this={completedContainer} class="space-y-8">
+        <CompletedState {job} />
+        <!-- Back to Home -->
+        <div class="text-left">
+          <a href="/" class="inline-flex items-center px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-100 rounded-lg transition-colors">
+            ← Analyze Another Query
+          </a>
+        </div>
       </div>
     {/if}
 

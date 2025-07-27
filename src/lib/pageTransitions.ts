@@ -59,5 +59,21 @@ export const pageTransitions = {
         ease: "power2.out"
       }
     );
+  },
+
+  // Slide in from bottom transition for completed state
+  slideInFromBottom: (element: HTMLElement) => {
+    return gsap.fromTo(element,
+      {
+        opacity: 0,
+        y: 100
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      }
+    );
   }
 };

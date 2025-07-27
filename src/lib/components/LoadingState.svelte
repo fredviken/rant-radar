@@ -26,18 +26,28 @@
     const emoji = document.createElement('div');
     emoji.textContent = angryEmojis[Math.floor(Math.random() * angryEmojis.length)];
     emoji.className = 'absolute text-2xl pointer-events-none';
-    emoji.style.left = Math.random() * 100 + '%';
-    emoji.style.bottom = '-50px';
+    
+    // Position at center of spinner (50% of the spinner container)
+    emoji.style.left = '50%';
+    emoji.style.top = '50%';
+    emoji.style.transform = 'translate(-50%, -50%)';
     
     emojiContainer.appendChild(emoji);
 
-    // Animate the emoji floating up (shorter trajectory)
+    // Random direction for shooting out from spinner
+    const angle = Math.random() * Math.PI * 2; // Full 360 degrees
+    const distance = 200 + Math.random() * 300; // 200-500px distance
+    const endX = Math.cos(angle) * distance;
+    const endY = Math.sin(angle) * distance;
+
+    // Animate the emoji shooting out from spinner center
     gsap.to(emoji, {
-      y: -300 - Math.random() * 200, // Float up 300-500px instead of full screen
-      x: (Math.random() - 0.5) * 100, // Smaller horizontal drift
-      rotation: Math.random() * 360,
+      x: endX,
+      y: endY,
+      rotation: Math.random() * 720, // Multiple rotations
+      scale: 0.5 + Math.random() * 0.5, // Shrink as it goes out
       opacity: 0,
-      duration: 2 + Math.random() * 1, // 2-3 seconds (faster)
+      duration: 1.5 + Math.random() * 1, // 1.5-2.5 seconds
       ease: "power2.out",
       onComplete: () => {
         emoji.remove();
@@ -83,8 +93,17 @@
     }
   }
 
-  // Export function so parent can trigger it
-  export { createInsightBurst };
+  // Export functions so parent can trigger them
+  function exitLoadingSpinner() {
+    return gsap.to(loadingContainer, {
+      y: -window.innerHeight,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.in"
+    });
+  }
+
+  export { createInsightBurst, exitLoadingSpinner };
 
   onMount(() => {
     // Initial entrance animation
@@ -111,14 +130,6 @@
       repeat: -1
     });
 
-    // Floating animation for the entire spinner container
-    gsap.to(spinner.parentElement, {
-      y: -10,
-      duration: 2,
-      ease: "power2.inOut",
-      yoyo: true,
-      repeat: -1
-    });
 
     // Text transition function
     const animateText = () => {
@@ -141,7 +152,7 @@
       });
     };
 
-    const textInterval = setInterval(animateText, 3000);
+    const textInterval = setInterval(animateText, 5000);
 
     // Start emoji bubbling (more frequent)
     const emojiInterval = setInterval(createFloatingEmoji, 400 + Math.random() * 200); // Every 0.4-0.6 seconds
@@ -154,14 +165,13 @@
   });
 </script>
 
-<!-- Floating emoji container - full viewport -->
-<div bind:this={emojiContainer} class="fixed inset-0 pointer-events-none z-0"></div>
-
 <div class="flex items-center justify-center min-h-screen relative">
   <div bind:this={loadingContainer} class="text-center space-y-8 relative z-10">
     <!-- Big Spinner -->
     <div class="relative">
       <div bind:this={spinner} class="rounded-full h-24 w-24 border-4 border-neutral-700 border-t-amber-400 mx-auto"></div>
+      <!-- Emoji container positioned relative to spinner -->
+      <div bind:this={emojiContainer} class="absolute inset-0 pointer-events-none"></div>
     </div>
     
     <!-- Loading Text -->
