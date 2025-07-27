@@ -82,7 +82,7 @@ export const searchReddit = tool({
       ? `https://www.reddit.com/r/${subreddit}/search.json`
       : `https://www.reddit.com/search.json`
     
-    const url = `${searchUrl}?q=${encodeURIComponent(query)}&sort=${sort}&t=${timeFilter}&limit=25`
+    const url = `${searchUrl}?q=${encodeURIComponent(query)}&sort=${sort}&t=${timeFilter}&limit=36`
     console.log('Fetching:', url)
     
     const response = await fetch(url, {

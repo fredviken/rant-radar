@@ -35,7 +35,7 @@ async function runAnalysis(jobId: string, query: string) {
       - Which aspect it relates to (UX, Performance, Pricing, etc.)
       
       Provide a detailed summary with all the specific complaints and their source URLs.`,
-      maxSteps: 16,
+      maxSteps: 32,
     });
 
     // Phase 2: Transform rants into constructive feedback
@@ -74,7 +74,7 @@ Create a JSON object with EXACTLY this structure:
   "recommendedActions": ["<action 1>", "<action 2>", "<action 3>"]
 }
 
-Include 3-5 complaints maximum. Focus on the most severe issues with proper source attribution.`,
+Include 3-7 complaints maximum. Focus on the most severe issues with proper source attribution.`,
     });
 
     // Save successful result
