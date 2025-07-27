@@ -16,8 +16,8 @@
   let realtimeChannel: RealtimeChannel | null = null;
   let pageContainer: HTMLDivElement;
   // let previousStatus: string | null = null;
-  let loadingComponent: LoadingState;
-  let completedContainer: HTMLDivElement;
+  let loadingComponent = $state<LoadingState | undefined>();
+  let completedContainer = $state<HTMLDivElement | undefined>();
 
   const jobId = $derived(page.params.id);
 
@@ -122,8 +122,8 @@
         <CompletedState {job} />
         <!-- Back to Home -->
         <div class="text-left">
-          <a href="/" class="inline-flex items-center px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-neutral-100 rounded-lg transition-colors">
-            ← Analyze Another Query
+          <a href="/" class="inline-flex items-center px-4 py-2 border border-neutral-700 bg-neutral-600/10 backdrop-blur-sm text-neutral-100 rounded-lg transition-colors">
+            ← Analyze another query
           </a>
         </div>
       </div>

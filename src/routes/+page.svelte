@@ -131,7 +131,7 @@
 					<button
 						type="submit"
 						disabled={!query.trim() || isLoading}
-						class="rounded-lg border w-full border-amber-400 bg-gradient-to-tl from-amber-600 to-amber-500 px-6 py-3 text-nowrap ring-1 ring-amber-800"
+						class="rounded-lg border cursor-pointer disabled:opacity-50 hover:border-amber-400 w-full border-amber-500 bg-gradient-to-tl from-amber-700 to-amber-600 px-6 py-3 text-nowrap ring-1 ring-amber-800"
 					>
 						{isLoading ? 'Analyzing...' : 'Analyze complaints'}
 					</button>

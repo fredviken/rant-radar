@@ -60,7 +60,7 @@
 <div class="space-y-8 py-16">
   <!-- Header Stats -->
   <div class="stats-header">
-    <h2 class="text-2xl font-semibold text-neutral-100 mb-3">Anlysis completed!</h2>
+    <h2 class="text-2xl font-semibold text-neutral-100 mb-3">Analysis completed!</h2>
     <p class="text-neutral-400">
       {job.result?.complaints?.length || 0} complaints • {job.result?.totalPostsAnalyzed || 0} posts analyzed
     </p>
