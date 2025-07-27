@@ -1,38 +1,30 @@
-# sv
+# Rant Radar
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Turn criticism, complaints and rants into constructive feedback.
 
-## Creating a project
+Rant Radar searches Reddit for complaints about products or services, then uses AI to transform those rants into structured, actionable insights.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## How it works
 
-```sh
-# create a new project in the current directory
-npx sv create
+1. Enter what you want to analyze. It can be a product, service, or anything else.
+2. AI searches Reddit for complaints and issues
+3. Raw feedback gets transformed into organized insights
+4. Get structured results with severity ratings and recommendations
 
-# create a new project in my-app
-npx sv create my-app
-```
+## Tech Stack
 
-## Developing
+**Frontend**
+- SvelteKit with TypeScript
+- Tailwind CSS for styling
+- GSAP for animations
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+**Backend**
+- Supabase for database, realtime and edge functions
+- OpenRouter for AI model access
+- Reddit API for content search
 
-```sh
-npm run dev
+## Configuration
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Add your OpenRouter API key to Supabase environment variables as `OPENROUTER_API_KEY`.
+ 
+You also have to enable realtime subscriptions for the `jobs` table in Supabase.
