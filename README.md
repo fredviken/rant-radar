@@ -23,8 +23,20 @@ Rant Radar searches Reddit for complaints about products or services, then uses 
 - OpenRouter for AI model access
 - Reddit API for content search
 
-## Configuration
+## Getting Started
 
-Add your OpenRouter API key to Supabase environment variables as `OPENROUTER_API_KEY`.
- 
-You also have to enable realtime subscriptions for the `jobs` table in Supabase.
+```bash
+pnpm install
+```
+
+Add environment variables:
+- `.env` - Add your Supabase keys for the frontend
+- `supabase/functions/.env` - Add `OPENROUTER_API_KEY=your_key_here`
+
+```bash
+supabase start
+supabase functions serve
+pnpm dev
+```
+
+Make sure to enale realtime for the `jobs` table in the supabase dashboard.
