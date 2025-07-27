@@ -123,7 +123,7 @@
 						placeholder="e.g., Supabase, React, Vercel..."
 						class="w-full rounded-lg flex-1 border border-neutral-700 bg-neutral-800 px-4 py-2
                    text-neutral-100 placeholder-neutral-500
-                   transition-colors focus:border-transparent focus:ring-2 focus:ring-neutral-600
+                   transition-colors focus:border-transparent focus:ring-2 focus:ring-amber-600
                    focus:outline-none"
 						disabled={isLoading}
 					/>
@@ -131,7 +131,7 @@
 					<button
 						type="submit"
 						disabled={!query.trim() || isLoading}
-						class="rounded-lg border cursor-pointer disabled:opacity-50 hover:border-amber-400 w-full border-amber-500 bg-gradient-to-tl from-amber-700 to-amber-600 px-6 py-3 text-nowrap ring-1 ring-amber-800"
+						class="rounded-lg active:scale-95 duration-200 border cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 hover:border-amber-400 w-full border-amber-500 bg-gradient-to-tl from-amber-700 to-amber-600 px-6 py-3 text-nowrap ring-1 ring-amber-800"
 					>
 						{isLoading ? 'Analyzing...' : 'Analyze complaints'}
 					</button>
