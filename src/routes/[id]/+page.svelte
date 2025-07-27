@@ -106,7 +106,29 @@
       supabase.removeChannel(realtimeChannel);
     }
   });
+
+  // Dynamic title based on job state
+  const pageTitle = $derived(() => {
+    if (!job) return 'Loading... | Rant Radar';
+    
+    switch (job.status) {
+      case 'pending':
+      case 'processing':
+        return `Analyzing ${job.query}... | Rant Radar`;
+      case 'completed':
+        return `${job.query} Analysis Complete | Rant Radar`;
+      case 'failed':
+        return `Analysis Failed | Rant Radar`;
+      default:
+        return 'Rant Radar';
+    }
+  });
 </script>
+
+<svelte:head>
+  <title>{pageTitle}</title>
+  <meta name="description" content={job ? `Analysis results for ${job.query} - Reddit complaints transformed into actionable insights.` : 'Analyzing Reddit complaints and transforming them into constructive feedback.'} />
+</svelte:head>
 
 <div class="min-h-screen">
   <div bind:this={pageContainer} class="max-w-4xl mx-auto space-y-8" class:py-8={!(loading || (job && (job.status === 'pending' || job.status === 'processing')))}>

@@ -96,6 +96,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Rant Radar - Turn criticism into constructive feedback</title>
+	<meta name="description" content="AI-powered tool that analyzes Reddit complaints and transforms them into actionable insights. Enlightened by hate." />
+</svelte:head>
+
 <div bind:this={pageContainer} class="flex min-h-screen items-center justify-center p-8">
 	<div class="w-full max-w-2xl space-y-8">
 		<!-- Header -->
